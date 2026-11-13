@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Проверка функции</title>
+    <style>
+        body { font-family: sans-serif; background: #0e0e12; color: #fff; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .card { background: #1a1a24; padding: 30px; border-radius: 12px; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.5); }
+        .error { color: #ff5555; }
+        .success { color: #55ff55; }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <h2>Проверка системных функций</h2>
+        <div id="status">Проверяем статус...</div>
+    </div>
+
+    <script>
+        const statusDiv = document.getElementById('status');
+
+        // Проверяем, включена ли геолокация (пример)
+        if (!navigator.geolocation) {
+            statusDiv.innerHTML = "<p class='error'>Ваш браузер не поддерживает геолокацию.</p>";
+        } else {
+            navigator.geolocation.getCurrentPosition(
+                function(position) {
+                    statusDiv.innerHTML = "<p class='success'>Функция включена и работает!</p>";
+                },
+                function(error) {
+                    // Если пользователь запретил или в Windows выключены службы определения места
+                    statusDiv.innerHTML = "<p class='error'>Функция отключена или заблокирована в системе/браузере.<br><small>Ошибка: " + error.message + "</small></p>";
+                }
+            );
+        }
+    </script>
+
+</body>
+</html>
